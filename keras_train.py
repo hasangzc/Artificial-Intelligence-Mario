@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
                 # Predict action probabilities and estimated future rewards
                 # from environment state
-                action_probs, critic_value = keras_obj.model(state)
+                action_probs, critic_value = keras_obj._keras_model(state=state)
                 keras_obj.critic_value_history.append(critic_value(0, 0))
 
                 # Sample action from action probability distribution

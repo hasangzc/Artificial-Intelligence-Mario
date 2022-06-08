@@ -29,13 +29,3 @@ env = DummyVecEnv([lambda: env])  # Return env back
 env = VecFrameStack(
     env, 4, channels_order="last"
 )  # 4: How many frames we want to stack  channels_order:
-
-
-done = True
-for step in range(5000):
-    if done:
-        state = env.reset()
-    state, reward, done, info = env.step([4])
-    env.render()
-
-env.close()

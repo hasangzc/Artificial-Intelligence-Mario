@@ -47,7 +47,7 @@ class KerasModel:
         self.callback = callback
         self._args = args
 
-        self.num_inputs = 7
+        self.num_inputs = (240, 256, 1)
         self.num_actions = 7
         self.num_hidden = 128
 
@@ -59,8 +59,10 @@ class KerasModel:
         self.running_reward = 0
         self.episode_count = 0
 
-    def _keras_model(self):
-        self.inputs = layers.Input(shape=(self.num_inputs,))
+    def _keras_model(self, state):
+        self.inputs = layers.Input(
+            shape=self.num_inputs,
+        )
         self.common = layers.Dense(
             self.num_hidden,
             activation="relu",
@@ -72,3 +74,4 @@ class KerasModel:
         self.critic = layers.Dense(1)(self.common)
 
         self.model = keras.Model(inputs=self.inputs, outputs=[self.action, self.critic])
+        return self.model(state)
